@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import PostContainer from "../PostContainer/PostContainer";
+import SubmitButton from "../SubmitButton/SubmitButton";
+
+import "./Form.css";
 
 const Form = () => {
   const [thoughts, setThoughts] = useState([]);
@@ -13,7 +16,17 @@ const Form = () => {
   }, []);
   return (
     <>
-      <form></form>
+      <div className="postWrapper">
+        <h2>What is making you happy right now?</h2>
+        <form className="formContainer">
+          <textarea placeholder="'If music be the food of love, play on.' – William Shakespeare"></textarea>
+        </form>
+        <div className="postLength">
+          <p>Error</p>
+          <p>0/140</p>
+        </div>
+        <SubmitButton />
+      </div>
       <PostContainer thoughts={thoughts} />
     </>
   );
