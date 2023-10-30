@@ -1,6 +1,6 @@
-const SubmitButton = () => {
+const SubmitButton = ({ handleSubmit }) => {
   return (
-    <button>
+    <button onClick={handleSubmit}>
       <span className="heartEmoji">❤️</span>Send Happy Thought
       <span className="heartEmoji">❤️</span>
     </button>
