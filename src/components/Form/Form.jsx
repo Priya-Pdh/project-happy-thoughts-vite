@@ -7,6 +7,7 @@ import "./Form.css";
 const Form = () => {
   const [thoughts, setThoughts] = useState([]);
   const [newThought, setNewThought] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
@@ -18,18 +19,21 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: newThought }),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        setThoughts([response, ...thoughts]);
-        setNewThought("");
-        console.log(thoughts);
-      });
+    if (newThought.length < 5) {
+      setError("Your message is too short, it needs at least 5 letters 😔");
+    } else {
+      fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: newThought }),
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          setThoughts([response, ...thoughts]);
+          setNewThought("");
+          setError("");
+        });
+    }
   };
 
   const handleTextInputChange = (event) => {
@@ -47,8 +51,8 @@ const Form = () => {
           ></textarea>
         </form>
         <div className="postLength">
-          <p>Error</p>
-          <p>0/140</p>
+          {error && <p>{error}</p>}
+          <p>{newThought.length}/140</p>
         </div>
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
