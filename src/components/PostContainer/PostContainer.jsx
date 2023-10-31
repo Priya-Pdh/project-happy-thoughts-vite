@@ -1,11 +1,27 @@
+import HeartButton from "../HeartButton/HeartButton";
+import "./PostContainer.css";
+
 const PostContainer = ({ thoughts }) => {
+
   return (
     thoughts && (
-      <ul>
+      <div className="postedThoughtsContainer">
         {thoughts.map((thought, id) => (
-          <li key={id}>{thought.message}</li>
+          <>
+            <div className="messageList" key={id}>
+              <p  className="happyThoughts">
+                {thought.message}
+              </p>
+            </div>
+            <div className="infoWrapper">
+              <div className="infoLikes">
+                <HeartButton thoughts={[thought]} />
+              </div>
+              <div className="infoTime">Time </div>
+            </div>
+          </>
         ))}
-      </ul>
+      </div>
     )
   );
 };
