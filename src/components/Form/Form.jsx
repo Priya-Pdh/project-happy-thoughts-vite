@@ -27,18 +27,19 @@ const Form = () => {
       .then((res) => res.json())
       .then((response) => {
         if (response.errors) {
-          switch (response.errors.message.kind) {
+          const message = response.errors.message;
+          switch (message.kind) {
             case "required":
-              setError("Thought is required");
+              setError("Posting a thought is required");
               break;
             case "minlength":
               setError(
-                `Your message is too short, it needs at least ${response.errors.message.properties.minlength} letters 😔`
+                `Your message is too short, it needs at least ${message.minlength} letters 😔`
               );
               break;
             case "maxlength":
               setError(
-                `Your message is too long, it needs to be less than ${response.errors.message.properties.maxlength} letters 😔`
+                `Your message is too long, it needs to be less than ${message.properties.maxlength} letters 😔`
               );
               break;
             default:
