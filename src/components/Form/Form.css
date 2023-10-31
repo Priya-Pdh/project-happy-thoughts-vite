@@ -1,10 +1,47 @@
-.mainWrapper {
-        margin: 20px auto;
-        padding: 5px var(--general-padding);
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-
+.postWrapper {
+  border: 1px solid rgb(105, 105, 105);
+  background-color: #ebebeb;
+  width: 45%;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  box-shadow: 10px 10px;
 }
+
+.postWrapper textarea {
+  font-size: 18px;
+  width: 100%;
+  height: 60px;
+  margin: 10px 0 2px;
+  background: white;
+  text-align: center;
+}
+
+.postWrapper button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #ffb7d2;
+  border-radius: 25px;
+  border: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  margin: 0 0 5px;
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.postLength {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  color: gray;
+  float: right;
+}
+
+.heartEmoji {
+  font-size: 25px;
+}
+
