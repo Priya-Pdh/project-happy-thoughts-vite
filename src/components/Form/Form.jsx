@@ -60,7 +60,6 @@ const Form = () => {
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
       <PostContainer thoughts={thoughts} />
-      </div>
     </>
   );
 };
