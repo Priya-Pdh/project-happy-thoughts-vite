@@ -9,38 +9,52 @@ const Form = () => {
   const [newThought, setNewThought] = useState("");
   const [error, setError] = useState("");
 
- 
-
   useEffect(() => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
       .then((res) => res.json())
       .then((data) => {
         setThoughts(data);
-        console.log(data)
       });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (newThought.length < 5) {
-      setError("Your message is too short, it needs at least 5 letters 😔");
-    } else {
-      fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: newThought }),
-      })
-        .then((res) => res.json())
-        .then((response) => {
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: newThought }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.errors) {
+          switch (response.errors.message.kind) {
+            case "required":
+              setError("Thought is required");
+              break;
+            case "minlength":
+              setError(
+                `Your message is too short, it needs at least ${response.errors.message.properties.minlength} letters 😔`
+              );
+              break;
+            case "maxlength":
+              setError(
+                `Your message is too long, it needs to be less than ${response.errors.message.properties.maxlength} letters 😔`
+              );
+              break;
+            default:
+              setError("Could not save thought");
+          }
+        } else {
           setThoughts([response, ...thoughts]);
           setNewThought("");
           setError("");
-        });
-    }
+        }
+      });
   };
 
   const handleTextInputChange = (event) => {
     setNewThought(event.target.value);
+    setError("");
   };
   return (
     <>
