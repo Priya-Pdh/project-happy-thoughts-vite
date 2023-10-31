@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PostContainer from "../PostContainer/PostContainer";
+import HeartButton from "../HeartButton/HeartButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
-
 import "./Form.css";
 
 const Form = () => {
@@ -9,11 +9,14 @@ const Form = () => {
   const [newThought, setNewThought] = useState("");
   const [error, setError] = useState("");
 
+ 
+
   useEffect(() => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
       .then((res) => res.json())
       .then((data) => {
         setThoughts(data);
+        console.log(data)
       });
   }, []);
 
@@ -57,6 +60,7 @@ const Form = () => {
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
       <PostContainer thoughts={thoughts} />
+      </div>
     </>
   );
 };

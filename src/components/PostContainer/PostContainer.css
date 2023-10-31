@@ -1,3 +1,33 @@
-.postDisplay {
-  display: flex;
+.postedThoughtsContainer {
+    border: 1px solid black;
+    margin: 10px;
+    margin: 0;
+    padding: 5px var(--general-padding);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
 }
+
+.messageList {
+    border: 1px solid rgb(105,105,105);
+    background-color: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--general-smaller-padding);
+    box-shadow: var(--box-shadow);
+    -webkit-box-shadow: var(--box-shadow);
+}
+
+.infoWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+}
+
+ 
+

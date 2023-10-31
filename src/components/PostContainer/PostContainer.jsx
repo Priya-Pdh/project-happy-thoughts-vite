@@ -1,3 +1,4 @@
+import HeartButton from "../HeartButton/HeartButton";
 import PostTime from "../PostTime/PostTime";
 import "./PostContainer.css";
 
@@ -27,16 +28,26 @@ const PostContainer = ({ thoughts }) => {
     } // In all other cases show that it was more than XX hours ago.
     return `${Math.floor(differenceinTime / 60)} hours ago`;
   };
+  
   return (
     thoughts && (
-      <ul>
+      <div className="postedThoughtsContainer">
         {thoughts.map((thought, id) => (
-          <div key={id} className="postDisplay">
-            <li>{thought.message}</li>
-            <PostTime timeStamp={convertTimestamp(thought.createdAt)} />
-          </div>
+          <>
+            <div className="messageList" key={id}>
+              <p  className="happyThoughts">
+                {thought.message}
+              </p>
+            </div>
+            <div className="infoWrapper">
+              <div className="infoLikes">
+                <HeartButton thoughts={[thought]} />
+              </div>
+              <div className="infoTime"><PostTime timeStamp={convertTimestamp(thought.createdAt)} /> </div>
+            </div>
+          </>
         ))}
-      </ul>
+      </div>
     )
   );
 };
