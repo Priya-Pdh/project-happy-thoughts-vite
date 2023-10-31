@@ -3,7 +3,6 @@ import PostTime from "../PostTime/PostTime";
 import "./PostContainer.css";
 
 const PostContainer = ({ thoughts }) => {
-  // Function to convert the timestamp in the JSON to a readable format, including making it a "XX minutes since format"
   const convertTimestamp = (timestamp) => {
     // The timestamp that will come from the API
     const timeOfPost = new Date(timestamp);
@@ -28,22 +27,22 @@ const PostContainer = ({ thoughts }) => {
     } // In all other cases show that it was more than XX hours ago.
     return `${Math.floor(differenceinTime / 60)} hours ago`;
   };
-  
+
   return (
     thoughts && (
       <div className="postedThoughtsContainer">
         {thoughts.map((thought, id) => (
           <>
             <div className="messageList" key={id}>
-              <p  className="happyThoughts">
-                {thought.message}
-              </p>
+              <p className="happyThoughts">{thought.message}</p>
             </div>
             <div className="infoWrapper">
               <div className="infoLikes">
                 <HeartButton thoughts={[thought]} />
               </div>
-              <div className="infoTime"><PostTime timeStamp={convertTimestamp(thought.createdAt)} /> </div>
+              <div className="infoTime">
+                <PostTime timeStamp={convertTimestamp(thought.createdAt)} />{" "}
+              </div>
             </div>
           </>
         ))}
