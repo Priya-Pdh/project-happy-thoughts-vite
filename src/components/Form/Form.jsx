@@ -8,7 +8,7 @@ const Form = () => {
   const [thoughts, setThoughts] = useState([]);
   const [newThought, setNewThought] = useState("");
   const [error, setError] = useState("");
-
+  const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
  
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const Form = () => {
           setThoughts([response, ...thoughts]);
           setNewThought("");
           setError("");
+          setNewThoughtId(response._id); // Set the new thought ID
         });
     }
   };
@@ -59,7 +60,7 @@ const Form = () => {
         </div>
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
-      <PostContainer thoughts={thoughts} />
+      <PostContainer thoughts={thoughts} newThoughtId={newThoughtId}/>
     </>
   );
 };
