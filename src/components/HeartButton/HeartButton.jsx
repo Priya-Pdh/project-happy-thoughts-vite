@@ -1,57 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./HeartButton.css";
 
-const HeartButton = ({ thoughts }) => {
-  const initialLikes = thoughts.map((thought) => thought.hearts);
-  const [increaseLikes, setIncreaseLikes] = useState(initialLikes);
+const HeartButton = ({ thoughts, onLike }) => {
+  const [likes, setLikes] = useState(thoughts.map((thought) => thought.hearts));
 
-  const handleLikes = (thoughtId) => {
-    // Make a POST request to update likes on the server
+  const handleLike = (thoughtId, index) => {
     fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${thoughtId}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({}),
     })
       .then((response) => {
         if (response.ok) {
-          // Increment likes locally
-          setIncreaseLikes((prevLikes) => {
-            const newLikes = [...prevLikes];
-            const id = thoughts.findIndex((thought) => thought._id === thoughtId);
-            newLikes[id]++;
-            // Store updated likes in local storage
-            localStorage.setItem("likes", JSON.stringify(newLikes));
-            return newLikes;
-          });
-          console.log(`Liked thought ${thoughtId}`);
-        } else {
-          console.error(`Failed to like thought ${thoughtId}`);
+          // Update likes every time the POST request is successful
+          const newLikes = [...likes];
+          newLikes[index] = newLikes[index] + 1;
+          setLikes(newLikes);
+          onLike(thoughtId);
         }
       })
       .catch((error) => {
-        console.error("Error updating likes on the server", error);
+        console.error("Error liking the thought", error);
       });
   };
 
-  useEffect(() => {
-    if (thoughts && thoughts.length) {
-      // Retrieve likes from local storage, if available
-      const localLikes = JSON.parse(localStorage.getItem("likes")) || initialLikes;
-      setIncreaseLikes(localLikes);
-    }
-  }, [thoughts]);
-
   return (
-    thoughts &&
-    thoughts.map((thought) => (
-      <div key={thought._id} className="heartContainer">
-        <button className="heartButton" onClick={() => handleLikes(thought._id)}>
-          <span className="heartEmoji">❤️</span>
-        </button>
-        <p> x{thought.hearts + increaseLikes[thoughts.indexOf(thought)]}</p>
-      </div>
-    ))
+    <div className="heartContainer">
+      {thoughts.map((thought, index) => (
+        <div key={thought._id} className="heartItem">
+          <button className="heartButton" onClick={() => handleLike(thought._id, index)}>
+            <span className="heartEmoji">❤️</span><span></span>
+          </button>
+          <span className="num-likes">x{likes[index]}</span>
+        </div>
+      ))}
+    </div>
   );
 };
 

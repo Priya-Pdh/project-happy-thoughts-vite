@@ -1,8 +1,11 @@
+import { useState } from "react";
 import HeartButton from "../HeartButton/HeartButton";
 import PostTime from "../PostTime/PostTime";
 import "./PostContainer.css";
 
 const PostContainer = ({ thoughts }) => {
+  const [likedThoughts, setLikedThoughts] = useState([]);
+
   // Function to convert the timestamp in the JSON to a readable format, including making it a "XX minutes since format"
   const convertTimestamp = (timestamp) => {
     // The timestamp that will come from the API
@@ -28,22 +31,29 @@ const PostContainer = ({ thoughts }) => {
     } // In all other cases show that it was more than XX hours ago.
     return `${Math.floor(differenceinTime / 60)} hours ago`;
   };
-  
+
+  const handleLike = (thoughtId) => {
+    setLikedThoughts((prevLikedThoughts) => [...prevLikedThoughts, thoughtId]);
+  };
+
   return (
     thoughts && (
-      <div className="postedThoughtsContainer">
+      <div>
         {thoughts.map((thought, id) => (
           <>
-            <div className="messageList" key={id}>
-              <p  className="happyThoughts">
-                {thought.message}
-              </p>
-            </div>
-            <div className="infoWrapper">
-              <div className="infoLikes">
-                <HeartButton thoughts={[thought]} />
+            <div className="postedThoughtsContainer" key={id}>
+              <div className="messageList">
+                <p className="happyThoughts">{thought.message}</p>
+              
+              <div className="infoWrapper">
+                <div className="infoLikes">
+                  <HeartButton thoughts={[thought]} onLike={handleLike} />
+                </div>
+                <div className="infoTime">
+                  <PostTime timeStamp={convertTimestamp(thought.createdAt)} />{" "}
+                </div>
               </div>
-              <div className="infoTime"><PostTime timeStamp={convertTimestamp(thought.createdAt)} /> </div>
+              </div>
             </div>
           </>
         ))}
