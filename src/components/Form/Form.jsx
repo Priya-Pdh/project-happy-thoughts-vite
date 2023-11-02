@@ -12,6 +12,7 @@ const Form = () => {
   const [error, setError] = useState("");
   const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
   const [loading, setLoading] = useState(true);
+  const [totalLikes, setTotalLikes] = useState(0)
  
 
   useEffect(() => {
@@ -66,6 +67,7 @@ const Form = () => {
         </div>
       ) : (
         <div>
+           <p>Total Likes: {totalLikes}</p>
       <div className="postWrapper">
         <h2>What is making you happy right now?</h2>
         <form className="formContainer">
@@ -81,7 +83,7 @@ const Form = () => {
         </div>
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
-      <PostContainer thoughts={thoughts} newThoughtId={newThoughtId}/>
+      <PostContainer thoughts={thoughts} newThoughtId={newThoughtId} setTotalLikes={setTotalLikes}/>
       </div>
       )
     }
