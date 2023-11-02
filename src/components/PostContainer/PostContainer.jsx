@@ -17,33 +17,37 @@ const PostContainer = ({ thoughts }) => {
     );
 
     // If the difference is less than 60 minutes, show one message
-    if (differenceinTime < 60) {
+    if (differenceinTime < 59) {
       return `${differenceinTime} minutes ago`;
     } // If difference is less than 120 minutes, show that it was about one hour ago
-    else if (differenceinTime < 120) {
-      return `1 hour ago`;
+    else if (differenceinTime < 119) {
+      return `about 1 hour ago`;
     } // If difference is less than 180 minutes, show that it was about two hour ago
-    else if (differenceinTime < 180) {
-      return `2 hours ago`;
-    } // In all other cases show that it was more than XX hours ago.
+    else if (differenceinTime < 179) {
+      return `about 2 hours ago`;
+    } // If difference is less than 220 minutes, show that it was about two hour ago
+    else if (differenceinTime < 239) {
+      return `about 3 hours ago`;
+    }
+    // In all other cases show that it was more than XX hours ago.
     return `${Math.floor(differenceinTime / 60)} hours ago`;
   };
-  
+
   return (
     thoughts && (
       <div className="postedThoughtsContainer">
         {thoughts.map((thought, id) => (
           <>
             <div className="messageList" key={id}>
-              <p  className="happyThoughts">
-                {thought.message}
-              </p>
+              <p className="happyThoughts">{thought.message}</p>
             </div>
             <div className="infoWrapper">
               <div className="infoLikes">
                 <HeartButton thoughts={[thought]} />
               </div>
-              <div className="infoTime"><PostTime timeStamp={convertTimestamp(thought.createdAt)} /> </div>
+              <div className="infoTime">
+                <PostTime timeStamp={convertTimestamp(thought.createdAt)} />{" "}
+              </div>
             </div>
           </>
         ))}

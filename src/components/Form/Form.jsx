@@ -55,7 +55,11 @@ const Form = () => {
 
   const handleTextInputChange = (event) => {
     setNewThought(event.target.value);
-    setError("");
+    if (newThought.length >= 14) {
+      setError("Your message is too long 😔");
+    } else {
+      setError("");
+    }
   };
   return (
     <>
