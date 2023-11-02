@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Abril Fatface";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/abrilfatface/v23/zOL64pLDlL1D99S8g8PtiKchq-dmjcDidBc.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -5,12 +17,28 @@
   justify-content: center;
   text-align: center;
 }
+
+.header h1 {
+  font-family: Abril Fatface;
+  font-size: 45px;
+  background: linear-gradient(
+    45deg,
+    #ff199f,
+    #cd8cdd,
+    #5be288,
+    #bef146,
+    #7e6ed8
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
 .totalPostsLiked {
   margin: auto;
   font-size: 20px;
 }
 .postWrapper {
-  border: 1px solid rgb(105, 105, 105); 
+  border: 1px solid rgb(105, 105, 105);
   background-color: #ebebeb;
   width: 100%;
   margin-top: 20px;
@@ -50,7 +78,6 @@
   justify-content: space-between;
   gap: 25px;
   color: gray;
-  float: right;
 }
 
 .heartEmoji {
@@ -95,6 +122,10 @@
   }
   .totalPostsLiked {
     font-size: 16px;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
   }
 }
 

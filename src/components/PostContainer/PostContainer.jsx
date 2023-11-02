@@ -24,17 +24,20 @@ const PostContainer = ({
       (currentTime - timeOfPost) / (1000 * 60)
     );
 
-    // If the difference is less than 60 minutes, show one message
-    if (differenceinTime < 59) {
+    //If the differenceInTime is less than 1 minute, show one message
+    if (differenceinTime < 1) {
+      return `less than a minute ago`;
+    } // If the difference is less than 45 minutes, show one message
+    else if (differenceinTime < 45) {
       return `${differenceinTime} minutes ago`;
-    } // If difference is less than 120 minutes, show that it was about one hour ago
-    else if (differenceinTime < 119) {
+    } // If difference is less than 90 minutes, show that it was about one hour ago
+    else if (differenceinTime < 90) {
       return `about 1 hour ago`;
-    } // If difference is less than 180 minutes, show that it was about two hour ago
-    else if (differenceinTime < 179) {
+    } // If difference is less than 180 minutes, show that it was about two hours ago
+    else if (differenceinTime < 120) {
       return `about 2 hours ago`;
-    } // If difference is less than 220 minutes, show that it was about two hour ago
-    else if (differenceinTime < 239) {
+    } // If difference is less than 240 minutes, show that it was about three hours ago
+    else if (differenceinTime < 240) {
       return `about 3 hours ago`;
     }
     // In all other cases show that it was more than XX hours ago.

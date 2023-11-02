@@ -27,9 +27,7 @@ const Form = () => {
       .then((res) => res.json())
       .then((data) => {
         setThoughts(data);
-        console.log(data);
         setLoading(false);
-        console.log(data);
       });
   }, []);
 
@@ -47,11 +45,13 @@ const Form = () => {
           const message = response.errors.message;
           switch (message.kind) {
             case "required":
-              setError("Posting a thought is required");
+              setError(
+                "Your message is too short, it needs at least 5 letters 😔"
+              );
               break;
             case "minlength":
               setError(
-                `Your message is too short, it needs at least ${message.minlength} letters 😔`
+                `Your message is too short, it needs at least ${message.properties.minlength} letters 😔`
               );
               break;
             case "maxlength":
@@ -72,13 +72,16 @@ const Form = () => {
       });
   };
 
-  const handleTextInputChange = (event) => {
-    setNewThought(event.target.value);
-    if (newThought.length >= 140) {
+  useEffect(() => {
+    if (newThought.length > 140) {
       setError("Your message is too long 😔");
     } else {
       setError("");
     }
+  }, [newThought.length]);
+
+  const handleTextInputChange = (event) => {
+    setNewThought(event.target.value);
   };
   return (
     <>
@@ -106,6 +109,7 @@ const Form = () => {
             </form>
             <div className="postLength">
               {error && <p>{error}</p>}
+              <div></div>
               <p
                 style={{
                   color: `${newThought.length >= 140 ? "red" : "black"}`,
