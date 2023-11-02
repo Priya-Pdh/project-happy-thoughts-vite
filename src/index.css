@@ -5,13 +5,7 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --general-padding: 35px;
-    --general-smaller-padding: 20px;
-    --general-mini-padding: 5px;
-    --box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    --main-width-mobile: 90%;
-    --main-width-desktop: 70%;
-    --hover-color: rgb(255, 199, 220);
+ 
 }
 
 code {
