@@ -88,8 +88,8 @@ const Form = () => {
         </div>
       ) : (
         <div>
-          <h1>Project Happy Thoughts</h1>
-          <h2>Priya and Naima Project</h2>
+          <h1 id="gradient-text">Project Happy Thoughts</h1>
+          <h2 id="name-heading">Priya and Naima Project</h2>
           <p>Posts 👍 {likedPostsCount}</p>
           <div className="postWrapper">
             <h2>What is making you happy right now?</h2>

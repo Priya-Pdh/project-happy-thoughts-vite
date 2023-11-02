@@ -1,8 +1,30 @@
+#gradient-text {
+  font-family: Abril Fatface;
+  font-size: 55px;
+  font-weight: 20rem;
+  background: linear-gradient(
+    45deg,
+    #ff199f,
+    #cd8cdd,
+    #5be288,
+    #bef146,
+    #7e6ed8
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
+  padding-top: 40px;
+}
+
+#name-heading {
+  text-align: center;
+}
+
 .postWrapper {
   border: 1px solid rgb(105, 105, 105);
   background-color: #ebebeb;
   width: 45%;
-  margin-top: 80px;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
@@ -49,7 +71,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-
- 
+  height: 100vh;
 }
