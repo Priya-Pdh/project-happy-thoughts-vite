@@ -3,9 +3,13 @@ import HeartButton from "../HeartButton/HeartButton";
 import PostTime from "../PostTime/PostTime";
 import "./PostContainer.css";
 
-const PostContainer = ({ thoughts, newThoughtId, setTotalLikes }) => {
+const PostContainer = ({
+  thoughts,
+  newThoughtId,
+  likedPostsCount,
+  setLikedPostsCount,
+}) => {
   const [likedThoughts, setLikedThoughts] = useState([]);
- 
 
   // Function to convert the timestamp in the JSON to a readable format, including making it a "XX minutes since format"
   const convertTimestamp = (timestamp) => {
@@ -37,9 +41,17 @@ const PostContainer = ({ thoughts, newThoughtId, setTotalLikes }) => {
     return `${Math.floor(differenceinTime / 60)} hours ago`;
   };
 
+  //In the handleLike function of PostContainer, update likedPostsCount
   const handleLike = (thoughtId) => {
-    setLikedThoughts((prevLikedThoughts) => [...prevLikedThoughts, thoughtId]);
-    setTotalLikes((prevTotalLikes) => prevTotalLikes + 1);
+    if (!likedThoughts.includes(thoughtId)) {
+      setLikedThoughts((prevLikedThoughts) => [
+        ...prevLikedThoughts,
+        thoughtId,
+      ]);
+      setLikedPostsCount(likedPostsCount + 1);
+      // Store likedPostsCount in localStorage
+      localStorage.setItem("likedPostsCount", likedPostsCount + 1);
+    }
   };
 
   return (
@@ -47,21 +59,22 @@ const PostContainer = ({ thoughts, newThoughtId, setTotalLikes }) => {
       <div>
         {thoughts.map((thought) => (
           <div key={thought._id}>
-       
-            <div className={`postedThoughtsContainer ${
-            newThoughtId === thought._id ? "newThought" : ""
-          }`} >
+            <div
+              className={`postedThoughtsContainer ${
+                newThoughtId === thought._id ? "newThought" : ""
+              }`}
+            >
               <div className="messageList">
                 <p className="happyThoughts">{thought.message}</p>
-              
-              <div className="infoWrapper">
-                <div className="infoLikes">
-                  <HeartButton thoughts={[thought]} onLike={handleLike} />
+
+                <div className="infoWrapper">
+                  <div className="infoLikes">
+                    <HeartButton thoughts={[thought]} onLike={handleLike} />
+                  </div>
+                  <div className="infoTime">
+                    <PostTime timeStamp={convertTimestamp(thought.createdAt)} />{" "}
+                  </div>
                 </div>
-                <div className="infoTime">
-                  <PostTime timeStamp={convertTimestamp(thought.createdAt)} />{" "}
-                </div>
-              </div>
               </div>
             </div>
           </div>
