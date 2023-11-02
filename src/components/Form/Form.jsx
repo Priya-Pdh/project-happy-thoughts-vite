@@ -88,11 +88,15 @@ const Form = () => {
         </div>
       ) : (
         <div>
-          <h1>Project Happy Thoughts</h1>
-          <h2>Priya and Naima Project</h2>
-          <p>Posts 👍 {likedPostsCount}</p>
+          <div className="header">
+            <h1 className="projectHeading">Project Happy Thoughts</h1>
+            <h2 className="subHeading">Priya and Naima Project</h2>
+            <p className="totalPostsLiked">Posts 👍 {likedPostsCount}</p>
+          </div>
           <div className="postWrapper">
-            <h2>What is making you happy right now?</h2>
+            <h2 className="inputQuestion">
+              What is making you happy right now?
+            </h2>
             <form className="formContainer">
               <textarea
                 placeholder="'If music be the food of love, play on.' – William Shakespeare"

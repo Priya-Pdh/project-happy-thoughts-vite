@@ -1,53 +1,73 @@
 .postedThoughtsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
 }
 
 .messageList {
-    border: 1px solid rgb(105,105,105);
-    background-color: #fff;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 35px;
-    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-    -webkit-box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-
+  border: 1px solid rgb(105, 105, 105);
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
 }
 
 .infoWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px;
 }
 
 .happyThoughts {
-        word-break: break-all;
-        white-space: normal;
-        margin: 10px 0 15px;
-    font-size: 18px;
+  word-break: break-all;
+  white-space: normal;
+  margin: 10px 0 15px;
+  font-size: 18px;
 }
- 
+
 .postedThoughtsContainer.newThought {
-    animation: appear 3s;
+  animation: appear 3s;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .postedThoughtsContainer {
+    width: 70%;
+  }
+  .inputQuestion {
+    font-size: 23px;
+  }
+  .messageList {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .postedThoughtsContainer {
+    width: 65%;
+  }
+}
+@media (min-width: 1024px) {
+  .postedThoughtsContainer {
+    width: 42%;
+  }
+}
