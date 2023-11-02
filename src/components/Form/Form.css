@@ -1,3 +1,17 @@
+.header h1 {
+  font-family: Abril Fatface;
+  font-size: 45px;
+  background: linear-gradient(
+    45deg,
+    #ff199f,
+    #cd8cdd,
+    #5be288,
+    #bef146,
+    #7e6ed8
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
 @font-face {
   font-family: "Abril Fatface";
   font-style: normal;
@@ -16,21 +30,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.header h1 {
-  font-family: Abril Fatface;
-  font-size: 45px;
-  background: linear-gradient(
-    45deg,
-    #ff199f,
-    #cd8cdd,
-    #5be288,
-    #bef146,
-    #7e6ed8
-  );
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 .totalPostsLiked {
