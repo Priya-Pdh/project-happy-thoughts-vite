@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import PostContainer from "../PostContainer/PostContainer";
-import HeartButton from "../HeartButton/HeartButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import { FadeLoader } from "react-spinners";
 
@@ -12,8 +11,7 @@ const Form = () => {
   const [error, setError] = useState("");
   const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
   const [loading, setLoading] = useState(true);
-  const [totalLikes, setTotalLikes] = useState(0)
-
+  const [totalLikes, setTotalLikes] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -22,13 +20,14 @@ const Form = () => {
       .then((data) => {
         setThoughts(data);
         console.log(data);
-        setLoading(false)
-        console.log(data)
+        setLoading(false);
+        console.log(data);
       });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(false);
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -59,35 +58,15 @@ const Form = () => {
           setThoughts([response, ...thoughts]);
           setNewThought("");
           setError("");
-        }
-      });
-
-    if (newThought.length < 5) {
-      setError("Your message is too short, it needs at least 5 letters 😔");
-    } else if (newThought.length > 140) {
-      console.log("You have exceeded over 140 characters");
-    } else {
-      setLoading(true);
-      fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: newThought }),
-      })
-        .then((res) => res.json())
-        .then((response) => {
-          setThoughts([response, ...thoughts]);
-          setNewThought("");
-          setError("");
           setNewThoughtId(response._id); // Set the new thought ID
           setLoading(false);
-
-        });
-    }
+        }
+      });
   };
 
   const handleTextInputChange = (event) => {
     setNewThought(event.target.value);
-    if (newThought.length >= 14) {
+    if (newThought.length >= 140) {
       setError("Your message is too long 😔");
     } else {
       setError("");
@@ -95,42 +74,43 @@ const Form = () => {
   };
   return (
     <>
-  
-    {
-      loading ? (
-        <div className="loading-spinner" >
-        <FadeLoader
-        color={"#ffb7d2"} 
-        loading={loading}
-        size={150} 
-        
-        />
+      {loading ? (
+        <div className="loading-spinner">
+          <FadeLoader color={"#ffb7d2"} loading={loading} size={150} />
         </div>
       ) : (
         <div>
-           <p>Total Likes: {totalLikes}</p>
-      <div className="postWrapper">
-        <h2>What is making you happy right now?</h2>
-        <form className="formContainer">
-          <textarea
-            placeholder="'If music be the food of love, play on.' – William Shakespeare"
-            value={newThought}
-            onChange={handleTextInputChange}
-          ></textarea>
-        </form>
-        <div className="postLength">
-          {error && <p>{error}</p>}
-          <p style={{ color: `${newThought.length > 140 ? "red" : "black"}` }}>
-            {newThought.length}/140
-          </p>
+          <h1>Project Happy Thoughts</h1>
+          <h2>Priya and Naima Project</h2>
+          <p>Total Likes: {totalLikes}</p>
+          <div className="postWrapper">
+            <h2>What is making you happy right now?</h2>
+            <form className="formContainer">
+              <textarea
+                placeholder="'If music be the food of love, play on.' – William Shakespeare"
+                value={newThought}
+                onChange={handleTextInputChange}
+              ></textarea>
+            </form>
+            <div className="postLength">
+              {error && <p>{error}</p>}
+              <p
+                style={{
+                  color: `${newThought.length >= 140 ? "red" : "black"}`,
+                }}
+              >
+                {newThought.length}/140
+              </p>
+            </div>
+            <SubmitButton handleSubmit={handleSubmit} />
+          </div>
+          <PostContainer
+            thoughts={thoughts}
+            newThoughtId={newThoughtId}
+            setTotalLikes={setTotalLikes}
+          />
         </div>
-        <SubmitButton handleSubmit={handleSubmit} />
-      </div>
-      <PostContainer thoughts={thoughts} newThoughtId={newThoughtId} setTotalLikes={setTotalLikes}/>
-      </div>
-      )
-    }
-      
+      )}
     </>
   );
 };
