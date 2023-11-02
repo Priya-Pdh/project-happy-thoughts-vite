@@ -3,7 +3,7 @@ import HeartButton from "../HeartButton/HeartButton";
 import PostTime from "../PostTime/PostTime";
 import "./PostContainer.css";
 
-const PostContainer = ({ thoughts }) => {
+const PostContainer = ({ thoughts, newThoughtId }) => {
   const [likedThoughts, setLikedThoughts] = useState([]);
 
   // Function to convert the timestamp in the JSON to a readable format, including making it a "XX minutes since format"
@@ -39,9 +39,11 @@ const PostContainer = ({ thoughts }) => {
   return (
     thoughts && (
       <div>
-        {thoughts.map((thought, id) => (
+        {thoughts.map((thought) => (
           <>
-            <div className="postedThoughtsContainer" key={id}>
+            <div className={`postedThoughtsContainer ${
+            newThoughtId === thought._id ? "newThought" : ""
+          }`} key={thought._id}>
               <div className="messageList">
                 <p className="happyThoughts">{thought.message}</p>
               
