@@ -14,12 +14,14 @@ const Form = () => {
   const [loading, setLoading] = useState(true);
   const [totalLikes, setTotalLikes] = useState(0)
 
+
   useEffect(() => {
     setLoading(true);
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
       .then((res) => res.json())
       .then((data) => {
         setThoughts(data);
+        console.log(data);
         setLoading(false)
         console.log(data)
       });
@@ -62,6 +64,8 @@ const Form = () => {
 
     if (newThought.length < 5) {
       setError("Your message is too short, it needs at least 5 letters 😔");
+    } else if (newThought.length > 140) {
+      console.log("You have exceeded over 140 characters");
     } else {
       setLoading(true);
       fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
@@ -116,7 +120,9 @@ const Form = () => {
         </form>
         <div className="postLength">
           {error && <p>{error}</p>}
-          <p>{newThought.length}/140</p>
+          <p style={{ color: `${newThought.length > 140 ? "red" : "black"}` }}>
+            {newThought.length}/140
+          </p>
         </div>
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
