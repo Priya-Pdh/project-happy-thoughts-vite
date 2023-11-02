@@ -2,29 +2,72 @@ import { useState, useEffect } from "react";
 import PostContainer from "../PostContainer/PostContainer";
 import HeartButton from "../HeartButton/HeartButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import { FadeLoader } from "react-spinners";
+
 import "./Form.css";
 
 const Form = () => {
   const [thoughts, setThoughts] = useState([]);
   const [newThought, setNewThought] = useState("");
   const [error, setError] = useState("");
+  const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
+  const [loading, setLoading] = useState(true);
+  const [totalLikes, setTotalLikes] = useState(0)
+
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
       .then((res) => res.json())
       .then((data) => {
         setThoughts(data);
         console.log(data);
+        setLoading(false)
+        console.log(data)
       });
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: newThought }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.errors) {
+          const message = response.errors.message;
+          switch (message.kind) {
+            case "required":
+              setError("Posting a thought is required");
+              break;
+            case "minlength":
+              setError(
+                `Your message is too short, it needs at least ${message.minlength} letters 😔`
+              );
+              break;
+            case "maxlength":
+              setError(
+                `Your message is too long, it needs to be less than ${message.properties.maxlength} letters 😔`
+              );
+              break;
+            default:
+              setError("Could not save thought");
+          }
+        } else {
+          setThoughts([response, ...thoughts]);
+          setNewThought("");
+          setError("");
+        }
+      });
+
     if (newThought.length < 5) {
       setError("Your message is too short, it needs at least 5 letters 😔");
     } else if (newThought.length > 140) {
       console.log("You have exceeded over 140 characters");
     } else {
+      setLoading(true);
       fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,15 +78,37 @@ const Form = () => {
           setThoughts([response, ...thoughts]);
           setNewThought("");
           setError("");
+          setNewThoughtId(response._id); // Set the new thought ID
+          setLoading(false);
+
         });
     }
   };
 
   const handleTextInputChange = (event) => {
     setNewThought(event.target.value);
+    if (newThought.length >= 14) {
+      setError("Your message is too long 😔");
+    } else {
+      setError("");
+    }
   };
   return (
     <>
+  
+    {
+      loading ? (
+        <div className="loading-spinner" >
+        <FadeLoader
+        color={"#ffb7d2"} 
+        loading={loading}
+        size={150} 
+        
+        />
+        </div>
+      ) : (
+        <div>
+           <p>Total Likes: {totalLikes}</p>
       <div className="postWrapper">
         <h2>What is making you happy right now?</h2>
         <form className="formContainer">
@@ -61,7 +126,11 @@ const Form = () => {
         </div>
         <SubmitButton handleSubmit={handleSubmit} />
       </div>
-      <PostContainer thoughts={thoughts} />
+      <PostContainer thoughts={thoughts} newThoughtId={newThoughtId} setTotalLikes={setTotalLikes}/>
+      </div>
+      )
+    }
+      
     </>
   );
 };
