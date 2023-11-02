@@ -11,7 +11,15 @@ const Form = () => {
   const [error, setError] = useState("");
   const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
   const [loading, setLoading] = useState(true);
-  const [totalLikes, setTotalLikes] = useState(0);
+  const [likedPostsCount, setLikedPostsCount] = useState(0);
+
+  //useEffect for storing likes in local storage
+  useEffect(() => {
+    const storedCount = localStorage.getItem("likedPostsCount");
+    if (storedCount) {
+      setLikedPostsCount(parseInt(storedCount, 10));
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -82,7 +90,7 @@ const Form = () => {
         <div>
           <h1>Project Happy Thoughts</h1>
           <h2>Priya and Naima Project</h2>
-          <p>Total Likes: {totalLikes}</p>
+          <p>Posts 👍 {likedPostsCount}</p>
           <div className="postWrapper">
             <h2>What is making you happy right now?</h2>
             <form className="formContainer">
@@ -107,7 +115,8 @@ const Form = () => {
           <PostContainer
             thoughts={thoughts}
             newThoughtId={newThoughtId}
-            setTotalLikes={setTotalLikes}
+            likedPostsCount={likedPostsCount}
+            setLikedPostsCount={setLikedPostsCount}
           />
         </div>
       )}
