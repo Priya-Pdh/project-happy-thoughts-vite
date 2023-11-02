@@ -20,21 +20,33 @@
   text-align: center;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.totalPostsLiked {
+  margin: auto;
+  font-size: 20px;
+}
 .postWrapper {
   border: 1px solid rgb(105, 105, 105);
   background-color: #ebebeb;
-  width: 45%;
+  width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px;
-  box-shadow: 10px 10px;
+  padding: 0 30px 15px 30px;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
 }
 
 .postWrapper textarea {
   font-size: 18px;
   width: 100%;
-  height: 60px;
+  height: 50px;
   margin: 10px 0 2px;
   background: white;
   text-align: center;
@@ -72,4 +84,52 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .projectHeading {
+    font-size: 25px;
+  }
+  .subHeading {
+    font-size: 20px;
+  }
+  .postWrapper {
+    width: 70%;
+    padding: 0 20px 20px 20px;
+  }
+
+  .postWrapper button {
+    font-size: 12px;
+    width: 85%;
+  }
+
+  .heartEmoji {
+    font-size: 18px;
+  }
+  .postWrapper textarea {
+    height: 80px;
+  }
+  .postWrapper textarea::placeholder {
+    font-size: 14px;
+  }
+  .postLength {
+    font-size: 14px;
+  }
+  .totalPostsLiked {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .postWrapper {
+    width: 70%;
+  }
+}
+@media (min-width: 1024px) {
+  .postWrapper {
+    width: 45%;
+  }
+  .postWrapper textarea {
+    height: 65px;
+  }
 }

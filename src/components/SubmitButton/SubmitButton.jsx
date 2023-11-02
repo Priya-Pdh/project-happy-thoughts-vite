@@ -1,6 +1,6 @@
 const SubmitButton = ({ handleSubmit }) => {
   return (
-    <button onClick={handleSubmit}>
+    <button onClick={handleSubmit} className="submitButton">
       <span className="heartEmoji">❤️</span>Send Happy Thought
       <span className="heartEmoji">❤️</span>
     </button>
