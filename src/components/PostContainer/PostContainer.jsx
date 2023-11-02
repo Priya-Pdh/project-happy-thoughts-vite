@@ -42,10 +42,11 @@ const PostContainer = ({ thoughts, newThoughtId, setTotalLikes }) => {
     thoughts && (
       <div>
         {thoughts.map((thought) => (
-          <>
+          <div key={thought._id}>
+       
             <div className={`postedThoughtsContainer ${
             newThoughtId === thought._id ? "newThought" : ""
-          }`} key={thought._id}>
+          }`} >
               <div className="messageList">
                 <p className="happyThoughts">{thought.message}</p>
               
@@ -59,7 +60,7 @@ const PostContainer = ({ thoughts, newThoughtId, setTotalLikes }) => {
               </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     )
