@@ -13,7 +13,6 @@ const Form = () => {
   const [newThoughtId, setNewThoughtId] = useState(null); // State to track the new thought ID
   const [loading, setLoading] = useState(true);
   const [totalLikes, setTotalLikes] = useState(0)
- 
 
   useEffect(() => {
     setLoading(true);
@@ -28,6 +27,39 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: newThought }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.errors) {
+          const message = response.errors.message;
+          switch (message.kind) {
+            case "required":
+              setError("Posting a thought is required");
+              break;
+            case "minlength":
+              setError(
+                `Your message is too short, it needs at least ${message.minlength} letters 😔`
+              );
+              break;
+            case "maxlength":
+              setError(
+                `Your message is too long, it needs to be less than ${message.properties.maxlength} letters 😔`
+              );
+              break;
+            default:
+              setError("Could not save thought");
+          }
+        } else {
+          setThoughts([response, ...thoughts]);
+          setNewThought("");
+          setError("");
+        }
+      });
+
     if (newThought.length < 5) {
       setError("Your message is too short, it needs at least 5 letters 😔");
     } else {
@@ -51,6 +83,11 @@ const Form = () => {
 
   const handleTextInputChange = (event) => {
     setNewThought(event.target.value);
+    if (newThought.length >= 14) {
+      setError("Your message is too long 😔");
+    } else {
+      setError("");
+    }
   };
   return (
     <>
