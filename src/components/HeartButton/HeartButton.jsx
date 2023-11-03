@@ -12,7 +12,6 @@ const HeartButton = ({ thoughts, onLike }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
       }
     )
       .then((response) => {
