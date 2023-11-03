@@ -106,13 +106,14 @@
   .postWrapper button {
     font-size: 12px;
     width: 85%;
+    margin-top: 0;
   }
 
   .heartEmoji {
     font-size: 18px;
   }
   .postWrapper textarea {
-    height: 80px;
+    height: 70px;
   }
   .postWrapper textarea::placeholder {
     font-size: 14px;
@@ -133,6 +134,9 @@
   .postWrapper {
     width: 70%;
   }
+  .postWrapper button {
+    margin-top: 0;
+  }
 }
 @media (min-width: 1024px) {
   .postWrapper {
@@ -140,5 +144,8 @@
   }
   .postWrapper textarea {
     height: 65px;
+  }
+  .postWrapper button {
+    margin-top: 0;
   }
 }

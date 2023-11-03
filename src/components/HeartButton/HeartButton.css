@@ -32,3 +32,11 @@
     transform: scale(1);
   }
 }
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .num-likes {
+    font-size: 14px;
+  }
+ 
+}
