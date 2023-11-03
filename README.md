@@ -4,29 +4,36 @@
   </a>
 </h1>
 
-# Unhappy thoughts Project
+# Happy thoughts Project ☺️
 
-In this week's project, you'll be able to practice your React state skills by fetching and posting data to an API.
+Created by Naima Malik and Priya Pradhan 👩🏻‍💻👩🏻‍💻 Technigo Group Project Week 6 - October 30th to 5 Nov 2023
 
-## Getting Started with the Project
+This is Happy Thoughts app where users can share their thoughts like (twitter) and it has the following features:
+- Shows the 20 latest thoughts which is fetched from an API.
+- User can post there thoughts, like others thoughts.
+- The input field has validation, so when the user type too less, too long message they get error message below.
+- The user can give as much likes they want to the post.
+- At the top the user can see how many different post they has liked so far.
+- There is a animation when user submit their post also for heart button has animation.
+- The app is responsive.
 
-### Dependency Installation & Startup Development Server
 
-Once cloned, navigate to the project's root directory and this project uses npm (Node Package Manager) to manage its dependencies.
-
-The command below is a combination of installing dependencies, opening up the project on VS Code and it will run a development server on your terminal.
-
-```bash
-npm i && code . && npm run dev
-```
-
-### The Problem
+### The Problem 😈
 
 Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
 
-### View it live
+This week went smoothly for us. We didn't faced much of git conflicts like we usually do. 
+Planning our work in trello has helped us to focus on specific task at a time and also reflect on completed task and to do task.
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Planning:- Planned on Trello: started with Basic requirements and then worked with intermitted and then Advance goal.
+
+Tech used: Trello, Slack, Zoom and Goggle meet.
+
+If we had more time we would probably like to add comments feature on the posts.
+
+### View it live 🚀
+
+https://twitter-app-by-naima-and-priya.netlify.app/ 
 
 ## Instructions
 
